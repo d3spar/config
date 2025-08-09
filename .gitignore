@@ -6,6 +6,8 @@
 
 !awesome/*
 !fish/config.fish
+!hypr/*
 !nvim/**
 !picom/*
 !starship.toml
+!waybar/*
