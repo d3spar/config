@@ -6,5 +6,6 @@
 
 !awesome/*
 !fish/config.fish
+!nvim/**
 !picom/*
 !starship.toml
