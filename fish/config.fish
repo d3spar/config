@@ -31,6 +31,7 @@ abbr -a wttr "curl wttr.in/75098\?u"
 #abbr -a cddev "z /run/media/esh/7CC2B57255551CB8/dev"
 abbr -a cdpoe "z /home/esh/.steam/root/steamapps/compatdata/238960/pfx/drive_c/users/steamuser/My\\ Documents/My\\ Games/Path\\ of\\ Exile"
 abbr -a cdpoe2 "z /home/esh/.steam/root/steamapps/compatdata/2694490/pfx/drive_c/users/steamuser/My\\ Documents/My\\ Games/Path\\ of\\ Exile\\ 2"
+abbr -a reflect "sudo reflector --verbose --country US --threads 10 --latest 100 --score 20 --sort rate --save /etc/pacman.d/mirrorlist"
 
 starship init fish | source
 zoxide init fish | source

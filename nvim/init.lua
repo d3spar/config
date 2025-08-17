@@ -1,4 +1,3 @@
--- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -8,15 +7,12 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
 -- Make line numbers default
 vim.o.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
 -- vim.o.relativenumber = true
+vim.o.wrap = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -84,6 +80,7 @@ vim.o.confirm = true
 --  See `:help vim.keymap.set()`
 vim.keymap.set('i', '<C-[>', '<Esc>')
 vim.keymap.set('n', '<leader>e', ':e $MYVIMRC<CR>')
+vim.keymap.set('n', '<leader>z', 'z=1<CR><CR>') --when spell is set pick first option(use [s and ]s to move next/prev spell err)
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>S', ':sf #<CR>')
 vim.keymap.set('n', '\\', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 vim.keymap.set('n', '<leader>sf', ':Pick files<CR>')
@@ -91,6 +88,9 @@ vim.keymap.set('n', '<leader>sh', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>sg', ':Pick grep<CR>')
 vim.keymap.set('n', '<leader>sl', ':Pick grep_live<CR>')
 vim.keymap.set('n', '<leader>sb', ':Pick buffers<CR>')
+vim.keymap.set('n', '<leader>sk', ':Pick keymaps<CR>')
+vim.keymap.set('n', '<leader>sm', ':Pick marks<CR>')
+vim.keymap.set('n', '<leader>s.', ':Pick oldfiles<CR>')
 -- vim.keymap.set('n', 'x', '"_x')
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -768,6 +768,7 @@ require('lazy').setup({
       }
       require('mini.pairs').setup()
       require('mini.pick').setup()
+      require('mini.extra').setup()
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
