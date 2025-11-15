@@ -377,6 +377,12 @@ globalkeys = gears.table.join(
 	awful.key({ modkey }, "e", function()
 		awful.spawn("thunar")
 	end, { description = "open file explorer", group = "launcher" }),
+	awful.key({ modkey }, "Print", function()
+		awful.spawn("flameshot full")
+	end, { description = "take a full screenshot", group = "launcher" }),
+	awful.key({ modkey, "Control" }, "Print", function()
+		awful.spawn("flameshot gui")
+	end, { description = "open flameshot gui", group = "launcher" }),
 	awful.key({ modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
 	awful.key({ modkey, "Shift" }, "q", awesome.quit, { description = "quit awesome", group = "awesome" }),
 

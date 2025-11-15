@@ -104,7 +104,7 @@ theme.titlebar_maximized_button_focus_active = themes_path .. "default/titlebar/
 
 --theme.wallpaper = themes_path.."default/background.png"
 --theme.wallpaper = "~/Downloads/eshBG.jpg"
-theme.wallpaper = "~/Downloads/iceland-hofn-mountains_3840x2160.jpg"
+theme.wallpaper = "~/Pictures/iceland-hofn-mountains_3840x2160.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path .. "default/layouts/fairhw.png"
