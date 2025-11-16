@@ -49,7 +49,7 @@ end
 -- }}}
 
 ------ESH
-local myWidgetFont = "JetBrains Mono 11"
+local myWidgetFont = "Fira Code"
 
 local volume_widget = wibox.widget({
 	markup = "",
