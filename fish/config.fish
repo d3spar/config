@@ -42,3 +42,7 @@ fzf --fish | source
 #bass source ~/.gvm/environments/default
 fish_add_path "/home/esh/.cargo/bin"
 fish_add_path "go/bin"
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
