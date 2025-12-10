@@ -17,7 +17,7 @@ vim.o.signcolumn = 'yes'
 vim.o.updatetime = 250
 vim.o.timeoutlen = 400
 vim.o.splitbelow = true
-vim.o.splitright = true
+vim.ot.splitright = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.o.cursorline = true
@@ -42,14 +42,23 @@ vim.keymap.set('n', '<leader>e', ':e $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>z', 'z=1<CR><CR>') --when spell is set pick first option(use [s and ]s to move next/prev spell err)
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>S', ':sf #<CR>')
 vim.keymap.set('n', '\\', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
-vim.keymap.set('n', '<leader>sf', ':Pick files<CR>')
-vim.keymap.set('n', '<leader>sh', ':Pick help<CR>')
-vim.keymap.set('n', '<leader>sg', ':Pick grep<CR>')
-vim.keymap.set('n', '<leader>sl', ':Pick grep_live<CR>')
-vim.keymap.set('n', '<leader>sb', ':Pick buffers<CR>')
-vim.keymap.set('n', '<leader>sk', ':Pick keymaps<CR>')
-vim.keymap.set('n', '<leader>sm', ':Pick marks<CR>')
-vim.keymap.set('n', '<leader>s.', ':Pick oldfiles<CR>')
+-- vim.keymap.set('n', '<leader>sf', ':Pick files<CR>')
+-- vim.keymap.set('n', '<leader>sh', ':Pick help<CR>')
+-- vim.keymap.set('n', '<leader>sg', ':Pick grep<CR>')
+-- vim.keymap.set('n', '<leader>sl', ':Pick grep_live<CR>')
+-- vim.keymap.set('n', '<leader>sb', ':Pick buffers<CR>')
+-- vim.keymap.set('n', '<leader>sk', ':Pick keymaps<CR>')
+-- vim.keymap.set('n', '<leader>sm', ':Pick marks<CR>')
+-- vim.keymap.set('n', '<leader>s.', ':Pick oldfiles<CR>')
+vim.keymap.set('n', '<leader>sf', ':FzfLua files<CR>')
+vim.keymap.set('n', '<leader>sh', ':FzfLua helptags<CR>')
+vim.keymap.set('n', '<leader>sg', ':FzfLua grep<CR>')
+vim.keymap.set('n', '<leader>sl', ':FzfLua grep_live<CR>')
+vim.keymap.set('n', '<leader>sb', ':FzfLua buffers<CR>')
+vim.keymap.set('n', '<leader>sk', ':FzfLua keymaps<CR>')
+vim.keymap.set('n', '<leader>sm', ':FzfLua marks<CR>')
+vim.keymap.set('n', '<leader>s.', ':FzfLua oldfiles<CR>')
+vim.keymap.set('n', '<leader>sc', ':FzfLua command_history<CR>')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- vim.keymap.set('n', 'x', '"_x')
 
@@ -128,6 +137,18 @@ require('lazy').setup({
         next = 'm<tab>',
       },
     },
+  },
+  {
+    'ibhagwan/fzf-lua',
+    -- optional for icon support
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    -- or if using mini.icons/mini.nvim
+    -- dependencies = { "nvim-mini/mini.icons" },
+    ---@module "fzf-lua"
+    ---@type fzf-lua.Config|{}
+    ---@diagnostics disable: missing-fields
+    opts = {},
+    ---@diagnostics enable: missing-fields
   },
   -- LSP Plugins
   {
@@ -319,7 +340,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
         --
 
         lua_ls = {
@@ -531,19 +552,17 @@ require('lazy').setup({
     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
   },
-
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
-      -- Better Around/Inside textobjects
-      --
-      -- Examples:
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
-
-      -- require('mini.extra').setup()
+      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+      -- - sd'   - [S]urround [D]elete [']quotes
+      -- - sr)'  - [S]urround [R]eplace [)] [']
+      require('mini.surround').setup()
       local hipatterns = require 'mini.hipatterns'
       hipatterns.setup {
         highlighters = {
@@ -552,29 +571,15 @@ require('lazy').setup({
           hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
           todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
           note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-
           -- Highlight hex color strings (`#rrggbb`) using that color
           hex_color = hipatterns.gen_highlighter.hex_color(),
         },
       }
       require('mini.pairs').setup()
-      require('mini.pick').setup()
-      require('mini.extra').setup()
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
+      -- require('mini.pick').setup()
+      -- require('mini.extra').setup()
       local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
       statusline.setup { use_icons = vim.g.have_nerd_font }
-
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
         return '%2l:%-2v %P'
