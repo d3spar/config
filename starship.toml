@@ -81,12 +81,12 @@ crust = "#11111b"
 [bun]
 symbol = "bun󰎙 "
 style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:#83a598 bg:color_bg3)]($style)'
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 
 [c]
 symbol = " "
 style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:#83a598 bg:color_bg3)]($style)'
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 
 #[character]
 #success_symbol = '[✔](bold green)'
