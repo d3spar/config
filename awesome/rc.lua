@@ -246,13 +246,27 @@ awful.screen.connect_for_each_screen(function(s)
 	local layouts2 = { l.max, l.floating, l.floating }
 	local vpnCity
 	local updateNumber
+	local usedMemory
 
 	if s.index == 1 then
 		awful.tag(names1, s, layouts1)
 		vpnCity = awful.widget.watch("bash -c \"echo `nordvpn status | rg City | awk '{print $2}'`\"", 120)
 		updateNumber = awful.widget.watch('bash -c "echo Updates:`checkupdates | wc -l`"', 300)
+		-- usedMemory = awful.widget.watch('bash "-c `free -h | grep Mem`"', 60)
 	elseif s.index == 2 then
 		awful.tag(names2, s, layouts2)
+		usedMemory = awful.widget.watch("free -h", 120, function(widget, stdout)
+			for line in stdout:gmatch("[^\r\n]+") do
+				if line:match("Mem") then
+					local t = {}
+					for str in string.gmatch(line, "([^" .. " " .. "]+)") do
+						table.insert(t, str)
+					end
+					widget:set_text(t[3])
+					return
+				end
+			end
+		end)
 	end
 	--  awful.tag(names, s, layouts1)
 
@@ -314,6 +328,7 @@ awful.screen.connect_for_each_screen(function(s)
 			wibox.widget.systray(),
 			vpnCity,
 			updateNumber,
+			usedMemory,
 			volume_widget,
 			mytextclock,
 			exit_widget,
