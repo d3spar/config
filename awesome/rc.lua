@@ -255,7 +255,7 @@ awful.screen.connect_for_each_screen(function(s)
 		-- usedMemory = awful.widget.watch('bash "-c `free -h | grep Mem`"', 60)
 	elseif s.index == 2 then
 		awful.tag(names2, s, layouts2)
-		usedMemory = awful.widget.watch("free -h", 120, function(widget, stdout)
+		usedMemory = awful.widget.watch("free -h", 45, function(widget, stdout)
 			for line in stdout:gmatch("[^\r\n]+") do
 				if line:match("Mem") then
 					local t = {}

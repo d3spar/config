@@ -15,7 +15,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.signcolumn = 'yes'
 vim.o.updatetime = 250
-vim.o.timeoutlen = 400
+-- vim.o.timeoutlen = 400
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.list = true
@@ -52,6 +52,7 @@ vim.keymap.set('n', '<leader>sk', ':FzfLua keymaps<CR>')
 vim.keymap.set('n', '<leader>sl', ':FzfLua live_grep<CR>')
 vim.keymap.set('n', '<leader>sm', ':FzfLua marks<CR>')
 vim.keymap.set('n', '<leader>sr', ':FzfLua registers<CR>')
+vim.keymap.set('n', '<leader>su', ':FzfLua undotree<CR>')
 --"by(y) yank to b reg/"pb paste reg b
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- vim.keymap.set('n', 'x', '"_x')
@@ -565,7 +566,7 @@ require('lazy').setup({
           hex_color = hipatterns.gen_highlighter.hex_color(),
         },
       }
-      require('mini.pairs').setup()
+      -- require('mini.pairs').setup()
       -- require('mini.pick').setup()
       -- require('mini.extra').setup()
       local statusline = require 'mini.statusline'
