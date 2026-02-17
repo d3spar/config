@@ -10,7 +10,7 @@ end
 
 set -x EDITOR "nvim"
 set -x MANPAGER "nvim +Man!"
-set -x LD_LIBRARY_PATH "/usr/local/lib:/usr/local/lib/ollama/cuda_v12"
+set -x LD_LIBRARY_PATH "/usr/local/lib"
 set -x PKG_CONFIG_PATH "/usr/local/lib/pkgconfig"
 
 abbr -a cd "z"
