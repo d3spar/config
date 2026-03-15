@@ -262,7 +262,16 @@ awful.screen.connect_for_each_screen(function(s)
 					for str in string.gmatch(line, "([^" .. " " .. "]+)") do
 						table.insert(t, str)
 					end
+					-- local memNum = tonumber(string.sub(t[3], 1, 2))
+					-- if memNum >= 20 then
+					-- 	-- local message = message .. "<span foreground='#ff5500'><big><b>M</b></big></span>"
+					-- 	-- widget:set_markup_silently(message)
+					-- 	widget:set_text(t[3])
+					-- elseif memNum >= 26 then
+					-- 	widget:set_text(t[3])
+					-- else
 					widget:set_text(t[3])
+					-- end
 					return
 				end
 			end
