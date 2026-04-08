@@ -8,6 +8,7 @@
 !fish/config.fish
 !hypr/*
 !mpv/*
+!niri/*
 !nvim/**
 !picom/*
 !starship.toml
