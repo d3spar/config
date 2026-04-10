@@ -53,6 +53,7 @@ end)
 --  See `:help vim.keymap.set()`
 vim.keymap.set('i', '<C-[>', '<Esc>')
 vim.keymap.set('n', '<leader>e', ':e $MYVIMRC<CR>')
+vim.keymap.set('n', '<leader>so', ':source $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>z', 'z=1<CR><CR>') --when spell is set pick first option(use [s and ]s to move next/prev spell err)
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>S', ':sf #<CR>')
 vim.keymap.set('n', '\\', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
@@ -71,7 +72,21 @@ vim.keymap.set('n', '<leader>su', ':FzfLua undotree<CR>')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- vim.keymap.set('n', 'x', '"_x')
 
--- Diagnostic keymaps
+-- Diagnostic Config & Keymaps
+-- See :help vim.diagnostic.Opts
+vim.diagnostic.config {
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = 'rounded', source = 'if_many' },
+  underline = { severity = { min = vim.diagnostic.severity.WARN } },
+
+  -- Can switch between these as you prefer
+  virtual_text = true, -- Text shows up at the end of the line
+  virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+
+  -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+  jump = { float = true },
+}
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -92,16 +107,15 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- [[neovim builtin plugins]]
--- vim.cmd("packadd nvim.nohlsearch")
+vim.cmd 'packadd nohlsearch'
 vim.cmd 'packadd nvim.undotree'
 vim.keymap.set('n', '<leader>u', '<cmd>Undotree<CR>', { desc = 'Undotree toggle' })
+--experimental ui2
+--TODO mess with this more
+require('vim._core.ui2').enable { enable = true }
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
@@ -198,12 +212,6 @@ vim.api.nvim_create_autocmd('FileType', {
     -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   end,
 })
--- local filetypes = vim.iter(ensure_languages):map(vim.treesitter.language.get_filetypes):flatten():totable()
--- local ts_start = function(ev)
---   vim.treesitter.start(ev.buf)
--- end
--- vim.api.nvim_create_autocmd('FileType', filetypes, ts_start, 'Ensure enabled treesitter')
--- Config.new_autocmd('FileType', filetypes, ts_start, 'Ensure enabled tree-sitter')
 
 --autoformat
 require('conform').setup {
