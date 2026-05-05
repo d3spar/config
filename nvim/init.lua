@@ -256,5 +256,17 @@ vim.lsp.enable {
   'pyright',
 }
 
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  callback = function(ev)
+    local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+    if client:supports_method 'textDocument/implementation' then
+      -- Create a keymap for vim.lsp.buf.implementation ...
+    end
+
+    vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+  end,
+})
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
