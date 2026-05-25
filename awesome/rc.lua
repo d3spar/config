@@ -242,7 +242,7 @@ awful.screen.connect_for_each_screen(function(s)
 	local names1 = { "1", "2", "3", "4", "5" }
 	local names2 = { "1", "2", "3" }
 	local l = awful.layout.suit -- Just to save some typing: use an alias.
-	local layouts1 = { l.max, l.tile, l.tile, l.floating, l.floating }
+	local layouts1 = { l.max, l.tile, l.floating, l.floating, l.floating }
 	local layouts2 = { l.max, l.floating, l.floating }
 	local vpnCity
 	local updateNumber

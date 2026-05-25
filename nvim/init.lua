@@ -254,6 +254,7 @@ vim.lsp.enable {
   'gopls',
   'lua_ls',
   'pyright',
+  'ts_ls',
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
