@@ -31,7 +31,7 @@ vim.o.inccommand = 'split'
 --autocomplete
 vim.o.autocomplete = true
 vim.o.infercase = true
-vim.o.completeopt = 'menuone,preinsert'
+vim.o.completeopt = 'menuone,noinsert'
 vim.o.pumborder = 'single'
 vim.o.pumheight = 10
 vim.o.pumwidth = 100
@@ -255,6 +255,9 @@ vim.lsp.enable {
   'lua_ls',
   'pyright',
   'ts_ls',
+  'rust_analyzer',
+  'zls',
+  'ols',
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
