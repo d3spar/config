@@ -14,3 +14,4 @@
 !starship.toml
 !waybar/*
 !wezterm/*
+!xdg-desktop-portal/*

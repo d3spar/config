@@ -253,6 +253,7 @@ awful.screen.connect_for_each_screen(function(s)
 		vpnCity = awful.widget.watch("bash -c \"echo `nordvpn status | rg City | awk '{print $2}'`\"", 120)
 		updateNumber = awful.widget.watch('bash -c "echo Updates:`checkupdates | wc -l`"', 300)
 		-- usedMemory = awful.widget.watch('bash "-c `free -h | grep Mem`"', 60)
+		-- free -h | grep Mem | cut -w -f 3
 	elseif s.index == 2 then
 		awful.tag(names2, s, layouts2)
 		usedMemory = awful.widget.watch("free -h", 45, function(widget, stdout)

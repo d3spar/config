@@ -27,17 +27,19 @@ vim.o.scrolloff = 10
 vim.o.confirm = true
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
+vim.o.autoread = true
 
 --autocomplete
 vim.o.autocomplete = true
 vim.o.infercase = true
 vim.o.completeopt = 'menuone,noinsert'
+-- vim.o.completeopt = 'menuone,noinsert,preselect'
 vim.o.pumborder = 'single'
 vim.o.pumheight = 10
 vim.o.pumwidth = 100
 
 -- Folds (default behavior; see `:h Folding`)
-vim.o.foldlevel = 1 -- Fold everything except top level
+vim.o.foldlevel = 10 -- Fold everything except top level
 vim.o.foldmethod = 'indent' -- Fold based on indent level
 vim.o.foldnestmax = 10 -- Limit number of fold levels
 
@@ -55,6 +57,7 @@ vim.keymap.set('i', '<C-[>', '<Esc>')
 vim.keymap.set('n', '<leader>e', ':e $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>so', ':source $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>z', 'z=1<CR><CR>') --when spell is set pick first option(use [s and ]s to move next/prev spell err)
+vim.keymap.set('n', '<leader>w', ':set wrap!<CR>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>S', ':sf #<CR>')
 vim.keymap.set('n', '\\', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 vim.keymap.set('n', '<leader>s.', ':FzfLua oldfiles<CR>')
@@ -194,6 +197,7 @@ local ensure_languages = {
   'python',
   'rust',
   'typescript',
+  'odin',
 }
 local isnt_installed = function(lang)
   return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0
