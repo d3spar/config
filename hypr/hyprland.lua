@@ -326,7 +326,7 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 
 --ESH
 hl.bind(mainMod .. " + SHIFT + r", hl.dsp.exec_cmd("pkill wayar & waybar"))
--- hl.bind(mainMod .. " + o", hl.dsp.movewindow({ mon = "DP-3 silent" }))
+hl.bind(mainMod .. " + o", hl.dsp.window.move({ monitor = "DP-3", follow = false }))
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
@@ -336,7 +336,17 @@ hl.bind(mainMod .. " + SHIFT + r", hl.dsp.exec_cmd("pkill wayar & waybar"))
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
 -- Example window rules that are useful
-hl.window_rule({ match = { class = "firefox" }, opacity = "1.0 override" })
+hl.window_rule({ match = { class = "firefox" }, maximize = true, opacity = "1.0 override" })
+hl.window_rule({
+	match = { title = "Picture-in-Picture" },
+	float = true,
+	fullscreen = false,
+	maximize = false,
+	-- move = { "(monitor_w / 2)", 0 },
+	-- size = { "(monitor_w / 2)", "(monitor_h / 2)" },
+	move = { "(monitor_w) - 962", 2 },
+	size = { 960, 540 },
+})
 
 local suppressMaximizeRule = hl.window_rule({
 	-- Ignore maximize requests from all apps. You'll probably like this.
