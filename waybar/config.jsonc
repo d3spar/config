@@ -20,7 +20,7 @@
         "keyboard-state",
         "pulseaudio",
         "network",
-        "power-profiles-daemon",
+        // "power-profiles-daemon",
         "cpu",
         "memory",
         "clock",
@@ -32,6 +32,7 @@
             "DP-2": [ 1, 2, 3, 4, 5 ], // workspaces shown on DP-2
             "DP-3": [ 6, 7, 8 ], // workspaces shown on DP-3
         },
+        // "on-click": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e\"})' ",
         "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e+1\"})' ",
         "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e-1\"})' ",
     },
@@ -77,19 +78,19 @@
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "{used:0.1f}GiB "
     },
-    "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "",
-        "power-saver": ""
-      }
-    },
+    // "power-profiles-daemon": {
+    //   "format": "{icon}",
+    //   "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    //   "tooltip": true,
+    //   "format-icons": {
+    //     "default": "",
+    //     "performance": "",
+    //     "balanced": "",
+    //     "power-saver": ""
+    //   }
+    // },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",

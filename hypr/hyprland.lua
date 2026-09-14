@@ -42,7 +42,6 @@ local menu = "rofi -show drun"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
-	--   hl.exec_cmd(terminal)
 	hl.exec_cmd("kdeconnectd")
 	hl.exec_cmd("waybar & hyprpaper")
 end)
@@ -97,16 +96,17 @@ hl.config({
 		-- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
 		allow_tearing = false,
 
-		layout = "dwindle",
+		-- layout = "dwindle",
+		layout = "master",
 	},
 
 	decoration = {
-		rounding = 10,
-		rounding_power = 2,
+		-- rounding = 10,
+		-- rounding_power = 2,
 
 		-- Change transparency of focused and unfocused windows
 		active_opacity = 1.0,
-		inactive_opacity = 1.0,
+		inactive_opacity = 0.75,
 
 		shadow = {
 			enabled = true,
@@ -129,14 +129,14 @@ hl.config({
 })
 
 -- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
--- hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
--- hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
--- hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
--- hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 } } })
--- hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
+hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
+hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
+hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
+hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 } } })
+hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
 
 -- Default springs
--- hl.curve("easy", { type = "spring", mass = 1, stiffness = 238.1191, dampening = 24.21279333 })
+hl.curve("easy", { type = "spring", mass = 1, stiffness = 238.1191, dampening = 24.21279333 })
 
 hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
 hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
@@ -158,21 +158,6 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 -- "Smart gaps" / "No gaps when only"
--- uncomment all if you wish to use that.
--- hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
--- hl.workspace_rule({ workspace = "f[1]",   gaps_out = 0, gaps_in = 0 })
--- hl.window_rule({
---     name  = "no-gaps-wtv1",
---     match = { float = false, workspace = "w[tv1]" },
---     border_size = 0,
---     rounding    = 0,
--- })
--- hl.window_rule({
---     name  = "no-gaps-f1",
---     match = { float = false, workspace = "f[1]" },
---     border_size = 0,
---     rounding    = 0,
--- })
 hl.workspace_rule({ workspace = "1", monitor = "DP-2", gaps_out = 0, gaps_in = 0, default = true })
 hl.workspace_rule({ workspace = "2", monitor = "DP-2", gaps_out = 0, gaps_in = 0 })
 hl.workspace_rule({ workspace = "3", monitor = "DP-2", gaps_out = 0, gaps_in = 0 })
@@ -277,11 +262,17 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + t", hl.dsp.layout("togglesplit")) -- dwindle only
 
--- Move focus with mainMod + arrow keys
+-- Move focus with mainMod + h,j,k,l
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+
+-- Swap windows with mainMod + SHIFT + h,j,k,l
+hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.swap({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.swap({ direction = "down" }))
+hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.swap({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.swap({ direction = "right" }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -334,8 +325,8 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 --ESH
-hl.bind(mainMod .. " + SHIFT + r", hl.dsp.exec_cmd("pkill waypar & waybar"))
--- hl.bind(mainMod .. " + o", hl.dsp.movewindow({ mon = "DP-3", "silent" }))
+hl.bind(mainMod .. " + SHIFT + r", hl.dsp.exec_cmd("pkill wayar & waybar"))
+-- hl.bind(mainMod .. " + o", hl.dsp.movewindow({ mon = "DP-3 silent" }))
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
@@ -345,6 +336,7 @@ hl.bind(mainMod .. " + SHIFT + r", hl.dsp.exec_cmd("pkill waypar & waybar"))
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
 -- Example window rules that are useful
+hl.window_rule({ match = { class = "firefox" }, opacity = "1.0 override" })
 
 local suppressMaximizeRule = hl.window_rule({
 	-- Ignore maximize requests from all apps. You'll probably like this.
