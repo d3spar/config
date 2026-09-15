@@ -325,7 +325,7 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 --ESH
-hl.bind(mainMod .. " + SHIFT + r", hl.dsp.exec_cmd("pkill wayar & waybar"))
+hl.bind(mainMod .. " + SHIFT + r", hl.dsp.exec_cmd("pkill waybar && waybar"))
 hl.bind(mainMod .. " + o", hl.dsp.window.move({ monitor = "DP-3", follow = false }))
 
 --------------------------------
@@ -337,6 +337,7 @@ hl.bind(mainMod .. " + o", hl.dsp.window.move({ monitor = "DP-3", follow = false
 
 -- Example window rules that are useful
 hl.window_rule({ match = { class = "firefox" }, maximize = true, opacity = "1.0 override" })
+hl.window_rule({ match = { class = "steam" }, float = true, opacity = "1.0 override" })
 hl.window_rule({
 	match = { title = "Picture-in-Picture" },
 	float = true,
