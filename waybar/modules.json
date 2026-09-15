@@ -47,6 +47,11 @@
         //     "wechat": 99
         // }
     },
+    "custom/pacman": {
+        "format": " {} 󰚰 ",
+        "interval": 3600,
+        "exec": "checkupdates | wc -l"
+    },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
