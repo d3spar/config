@@ -80,8 +80,8 @@ hl.env("HYPRCURSOR_SIZE", "24")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
-		gaps_in = 5,
-		gaps_out = 20,
+		gaps_in = 4,
+		gaps_out = 4,
 
 		border_size = 2,
 
@@ -101,7 +101,7 @@ hl.config({
 	},
 
 	decoration = {
-		-- rounding = 10,
+		rounding = 0,
 		-- rounding_power = 2,
 
 		-- Change transparency of focused and unfocused windows
@@ -159,21 +159,21 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 -- "Smart gaps" / "No gaps when only"
 hl.workspace_rule({ workspace = "1", monitor = "DP-2", gaps_out = 0, gaps_in = 0, default = true, layout = "monocle" })
-hl.workspace_rule({ workspace = "2", monitor = "DP-2", gaps_out = 0, gaps_in = 0 })
-hl.workspace_rule({ workspace = "3", monitor = "DP-2", gaps_out = 0, gaps_in = 0 })
-hl.workspace_rule({ workspace = "4", monitor = "DP-2", gaps_out = 0, gaps_in = 0 })
-hl.workspace_rule({ workspace = "5", monitor = "DP-2", gaps_out = 0, gaps_in = 0 })
+hl.workspace_rule({ workspace = "2", monitor = "DP-2" })
+hl.workspace_rule({ workspace = "3", monitor = "DP-2" })
+hl.workspace_rule({ workspace = "4", monitor = "DP-2" })
+hl.workspace_rule({ workspace = "5", monitor = "DP-2" })
 hl.workspace_rule({ workspace = "6", monitor = "DP-3", gaps_out = 0, gaps_in = 0, default = true, layout = "monocle" })
-hl.workspace_rule({ workspace = "7", monitor = "DP-3", gaps_out = 0, gaps_in = 0 })
-hl.workspace_rule({ workspace = "8", monitor = "DP-3", gaps_out = 0, gaps_in = 0 })
+hl.workspace_rule({ workspace = "7", monitor = "DP-3" })
+hl.workspace_rule({ workspace = "8", monitor = "DP-3" })
 hl.window_rule({ match = { float = false, workspace = "1" }, border_size = 0, rounding = 0 })
-hl.window_rule({ match = { float = false, workspace = "2" }, border_size = 0, rounding = 0 })
-hl.window_rule({ match = { float = false, workspace = "3" }, border_size = 0, rounding = 0 })
-hl.window_rule({ match = { float = false, workspace = "4" }, border_size = 0, rounding = 0 })
-hl.window_rule({ match = { float = false, workspace = "5" }, border_size = 0, rounding = 0 })
+-- hl.window_rule({ match = { float = false, workspace = "2" }, border_size = 0, rounding = 0 })
+-- hl.window_rule({ match = { float = false, workspace = "3" }, border_size = 0, rounding = 0 })
+-- hl.window_rule({ match = { float = false, workspace = "4" }, border_size = 0, rounding = 0 })
+-- hl.window_rule({ match = { float = false, workspace = "5" }, border_size = 0, rounding = 0 })
 hl.window_rule({ match = { float = false, workspace = "6" }, border_size = 0, rounding = 0 })
-hl.window_rule({ match = { float = false, workspace = "7" }, border_size = 0, rounding = 0 })
-hl.window_rule({ match = { float = false, workspace = "8" }, border_size = 0, rounding = 0 })
+-- hl.window_rule({ match = { float = false, workspace = "7" }, border_size = 0, rounding = 0 })
+-- hl.window_rule({ match = { float = false, workspace = "8" }, border_size = 0, rounding = 0 })
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
@@ -259,16 +259,16 @@ hl.bind(
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
--- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + t", hl.dsp.layout("togglesplit")) -- dwindle only
 
--- Move focus with mainMod + h,j,k,l or n/p
+-- Move focus with mainMod + h,j,k,l or tab/shift+tab
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + n", hl.dsp.layout("cyclenext"))
-hl.bind(mainMod .. " + p", hl.dsp.layout("cycleprev"))
+hl.bind(mainMod .. " + TAB", hl.dsp.layout("cyclenext"))
+hl.bind(mainMod .. " + SHIFT + TAB", hl.dsp.layout("cycleprev"))
 
 -- Swap windows with mainMod + SHIFT + h,j,k,l
 hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.swap({ direction = "left" }))
@@ -327,6 +327,7 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 --ESH
+--TODO: fix waybar reload when waybar is not running
 hl.bind(mainMod .. " + SHIFT + r", hl.dsp.exec_cmd("pkill waybar && waybar"))
 hl.bind(mainMod .. " + o", hl.dsp.window.move({ monitor = "DP-3", follow = false }))
 
@@ -340,6 +341,7 @@ hl.bind(mainMod .. " + o", hl.dsp.window.move({ monitor = "DP-3", follow = false
 -- Example window rules that are useful
 hl.window_rule({ match = { class = "firefox" }, opacity = "1.0 override" })
 hl.window_rule({ match = { class = "steam" }, float = true, opacity = "1.0 override" })
+hl.window_rule({ match = { class = "mpv" }, float = true, opacity = "1.0 override" })
 hl.window_rule({
 	match = { title = "Picture-in-Picture" },
 	float = true,
@@ -350,6 +352,39 @@ hl.window_rule({
 	move = { "(monitor_w) - 962", 2 },
 	size = { 960, 540 },
 })
+--TODO: figure this out
+-- Window 55ad68bda140 -> Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox:
+--         mapped: 1
+--         hidden: 0
+--         visible: 1
+--         acceptsInput: 1
+--         at: 0,36
+--         size: 2560,1404
+--         workspace: 1 (1)
+--         floating: 0
+--         monitor: 0
+--         class: firefox
+--         title: Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox
+--         initialClass: firefox
+--         initialTitle: Mozilla Firefox
+--         pid: 3068
+--         xwayland: 0
+--         pinned: 0
+--         pinFullscreened: 0
+--         fullscreen: 0
+--         fullscreenClient: 0
+--         fullscreenHandler: default
+--         allowedOverFullscreen: 1
+--         grouped: 0
+--         tags:
+--         swallowing: 0
+--         focusHistoryID: 3
+--         inhibitingIdle: 0
+--         xdgTag:
+--         xdgDescription:
+--         contentType: none
+--         tearingHint: 0
+--         stableID: 180005aa
 
 local suppressMaximizeRule = hl.window_rule({
 	-- Ignore maximize requests from all apps. You'll probably like this.
