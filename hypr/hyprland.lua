@@ -156,25 +156,6 @@ hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "al
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
 
--- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
--- "Smart gaps" / "No gaps when only"
-hl.workspace_rule({ workspace = "1", monitor = "DP-2", gaps_out = 0, gaps_in = 0, default = true, layout = "monocle" })
-hl.workspace_rule({ workspace = "2", monitor = "DP-2" })
-hl.workspace_rule({ workspace = "3", monitor = "DP-2" })
-hl.workspace_rule({ workspace = "4", monitor = "DP-2" })
-hl.workspace_rule({ workspace = "5", monitor = "DP-2" })
-hl.workspace_rule({ workspace = "6", monitor = "DP-3", gaps_out = 0, gaps_in = 0, default = true, layout = "monocle" })
-hl.workspace_rule({ workspace = "7", monitor = "DP-3" })
-hl.workspace_rule({ workspace = "8", monitor = "DP-3" })
-hl.window_rule({ match = { float = false, workspace = "1" }, border_size = 0, rounding = 0 })
--- hl.window_rule({ match = { float = false, workspace = "2" }, border_size = 0, rounding = 0 })
--- hl.window_rule({ match = { float = false, workspace = "3" }, border_size = 0, rounding = 0 })
--- hl.window_rule({ match = { float = false, workspace = "4" }, border_size = 0, rounding = 0 })
--- hl.window_rule({ match = { float = false, workspace = "5" }, border_size = 0, rounding = 0 })
-hl.window_rule({ match = { float = false, workspace = "6" }, border_size = 0, rounding = 0 })
--- hl.window_rule({ match = { float = false, workspace = "7" }, border_size = 0, rounding = 0 })
--- hl.window_rule({ match = { float = false, workspace = "8" }, border_size = 0, rounding = 0 })
-
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
 	dwindle = {
@@ -335,15 +316,28 @@ hl.bind(mainMod .. " + o", hl.dsp.window.move({ monitor = "DP-3", follow = false
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
--- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
--- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+-- https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+hl.workspace_rule({ workspace = "1", monitor = "DP-2", gaps_out = 0, gaps_in = 0, default = true, layout = "monocle" })
+hl.workspace_rule({ workspace = "2", monitor = "DP-2" })
+hl.workspace_rule({ workspace = "3", monitor = "DP-2" })
+hl.workspace_rule({ workspace = "4", monitor = "DP-2" })
+hl.workspace_rule({ workspace = "5", monitor = "DP-2" })
+hl.workspace_rule({ workspace = "6", monitor = "DP-3", gaps_out = 0, gaps_in = 0, default = true, layout = "monocle" })
+hl.workspace_rule({ workspace = "7", monitor = "DP-3" })
+hl.workspace_rule({ workspace = "8", monitor = "DP-3" })
 
--- Example window rules that are useful
+-- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
+hl.window_rule({ match = { float = false, workspace = "1" }, border_size = 0 })
+hl.window_rule({ match = { workspace = "4" }, float = true })
+hl.window_rule({ match = { float = false, workspace = "6" }, border_size = 0 })
 hl.window_rule({ match = { class = "firefox" }, opacity = "1.0 override" })
-hl.window_rule({ match = { class = "steam" }, float = true, opacity = "1.0 override" })
-hl.window_rule({ match = { class = "mpv" }, float = true, opacity = "1.0 override" })
 hl.window_rule({
-	match = { title = "Picture-in-Picture" },
+	match = { class = "firefox", title = "^Extension.*Bitwarden.*$" },
+	float = true,
+	opacity = "1.0 override",
+})
+hl.window_rule({
+	match = { class = "firefox", title = "Picture-in-Picture" },
 	float = true,
 	fullscreen = false,
 	maximize = false,
@@ -352,40 +346,11 @@ hl.window_rule({
 	move = { "(monitor_w) - 962", 2 },
 	size = { 960, 540 },
 })
---TODO: figure this out
--- Window 55ad68bda140 -> Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox:
---         mapped: 1
---         hidden: 0
---         visible: 1
---         acceptsInput: 1
---         at: 0,36
---         size: 2560,1404
---         workspace: 1 (1)
---         floating: 0
---         monitor: 0
---         class: firefox
---         title: Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox
---         initialClass: firefox
---         initialTitle: Mozilla Firefox
---         pid: 3068
---         xwayland: 0
---         pinned: 0
---         pinFullscreened: 0
---         fullscreen: 0
---         fullscreenClient: 0
---         fullscreenHandler: default
---         allowedOverFullscreen: 1
---         grouped: 0
---         tags:
---         swallowing: 0
---         focusHistoryID: 3
---         inhibitingIdle: 0
---         xdgTag:
---         xdgDescription:
---         contentType: none
---         tearingHint: 0
---         stableID: 180005aa
+hl.window_rule({ match = { class = "steam" }, float = true, opacity = "1.0 override" })
+hl.window_rule({ match = { class = "mpv" }, float = true, opacity = "1.0 override" })
+hl.window_rule({ match = { class = "^.*qbittorrent.*$" }, float = true, workspace = "5", opacity = "1.0 override" })
 
+-- Example window rules that are useful
 local suppressMaximizeRule = hl.window_rule({
 	-- Ignore maximize requests from all apps. You'll probably like this.
 	name = "suppress-maximize-events",
